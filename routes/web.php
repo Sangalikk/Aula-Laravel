@@ -16,6 +16,14 @@ Route::get('/', function () {
 });
 
 Route::get('/keep', [KeepControler::class, 'index'])->name('keep.index');
+
 Route::get('/keep/create', [KeepControler::class, 'create'])->name('keep.create');
 Route::post('/keep/create', [KeepControler::class, 'create']);
+
+Route::get('/keep/edit/{nota}', [KeepControler::class, 'edit'])->name('keep.edit');
+Route::put('/keep/edit/{nota}', [KeepControler::class, 'edit']);
+
+Route::get('/keep/delete/{nota}', [KeepControler::class, 'delete'])->name('keep.delete');
+Route::delete('/keep/delete/{nota}', [KeepControler::class, 'delete']);
+
 
