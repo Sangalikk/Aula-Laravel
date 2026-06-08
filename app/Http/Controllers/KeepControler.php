@@ -27,6 +27,8 @@ class KeepControler extends Controller{
 
     public function delete(Nota $nota){
         if (request()->isMethod('delete')) { 
+            // Desativa operações com timestamp temporariamente
+        $nota->timestamps = false; 
         $nota->delete(); 
 
         return redirect()->route('keep.index')->with('mensagem', 'Nota deletada com sucesso!'); 
@@ -48,5 +50,20 @@ class KeepControler extends Controller{
         return view('keep.create', [
             'nota' => $nota, 
         ]);
+    }
+
+    public function trash(){
+        $notas = Nota::onlyTrashed()->get();
+
+        return view('keep.trash', [
+            'notas' => $notas,
+        ]);
+    }
+
+    public function restore(Nota $nota){
+        $nota->timestamps = false; 
+        $nota->restore();
+
+        return redirect()->route('keep.index')->with('mensagem', 'Nota restaurada com sucesso.');
     }
 }

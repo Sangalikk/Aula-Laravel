@@ -26,4 +26,6 @@ Route::put('/keep/edit/{nota}', [KeepControler::class, 'edit']);
 Route::get('/keep/delete/{nota}', [KeepControler::class, 'delete'])->name('keep.delete');
 Route::delete('/keep/delete/{nota}', [KeepControler::class, 'delete']);
 
+Route::get('keep/trash/', [KeepControler::class, 'trash'])->name('keep.trash');
+Route::get('keep/trash/{nota}/restore', [KeepControler::class, 'restore'])->withTrashed()->name('keep.trash.restore'); 
 
