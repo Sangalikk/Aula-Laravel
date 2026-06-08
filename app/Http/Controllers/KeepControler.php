@@ -15,6 +15,7 @@ class KeepControler extends Controller{
 
     public function create(Request $request){
         if($request->isMethod('post')){ // Verifica se o método é POST
+        dd($request); 
         $dados = $request->validate([
         'nota' => 'required|min:5', 
         'cor' => 'required'
