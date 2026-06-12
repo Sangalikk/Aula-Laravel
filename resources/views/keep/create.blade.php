@@ -10,8 +10,8 @@
         </ul>
     </div>
 @endif
-    <form method="post" action="{{ isset($nota) ?
-    route('keep.edit', $nota['id']) : route('keep.create') }}" enctype="multipart/form-data">   
+    <form enctype="multipart/form-data" method="post" action="{{ isset($nota) ?
+    route('keep.edit', $nota['id']) : route('keep.create') }}">   
         @csrf
         @if (isset($nota))
             @method('put')
@@ -21,10 +21,11 @@
         <input type="color" name="cor" value= "{{ old('cor', $nota['cor'] ?? '') }}">
         <br>
         <br>
-        Imagem: <input type="file" name:"imagem">
+        Imagem: <input type="file" name="imagem">
         <br>
         <br>
         <input type="submit" value="Gravar">
     </form>
+    <iframe width="110" height="200" src="https://www.myinstants.com/instant/fahhhhhhhhhhhhhh-3525/embed/" frameborder="0" scrolling="no"></iframe>
     <p><a href="{{ route('keep.index') }}">Cancelar</a></p>
 @endsection

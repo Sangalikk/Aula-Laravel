@@ -15,7 +15,11 @@
             <br>
             Editada: {{ \Carbon\Carbon::parse($nota['updated_at'])->diffForHumans() }}
             @endif
-
+            <br><br>
+            @if($nota['imagem'])
+            <img src="{{ asset('storage/'.$nota['imagem']) }}" width="200" alt="">
+            <br><br>
+            @endif
             <br>
             <a href="{{ route('keep.edit', $nota['id']) }}">Editar</a>
             <a href="{{ route('keep.delete', $nota['id']) }}">Excluir</a>

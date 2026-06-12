@@ -14,12 +14,17 @@ class KeepControler extends Controller{
     }
 
     public function create(Request $request){
-        if($request->isMethod('post')){ // Verifica se o método é POST
-        dd($request); 
+        if($request->isMethod('post')){ // Verifica se o método é POST 
         $dados = $request->validate([
         'nota' => 'required|min:5', 
-        'cor' => 'required'
+        'cor' => 'required',
+        'imagem' => 'nullable|image'
     ]); // Pega os campos preenchidos
+        // Verifica se tem arquivo e grava
+        if($request->hasFile('imagem')){
+            $dados['imagem'] = $request->file
+            ('imagem')->store('imagens', 'public');
+        }
         Nota::create($dados); // Faz um insert no banco
         return redirect()->route('keep.index')->with('mensagem', 'Nota criada com sucesso!'); // Retorna para página index
     } 
@@ -43,8 +48,16 @@ class KeepControler extends Controller{
         if($request->isMethod('PUT')){
             $dados = $request->validate([
             'nota' => 'required|min:5', 
-            'cor' => 'required'
+            'cor' => 'required',
+            'imagem' => 'nullable|image'
         ]);
+        if($nota->imagem){
+            \Storage::disk('public')->delete($nota->imagem);
+        }
+        if($request->hasFile('imagem')){
+            $dados['imagem'] = $request->file
+            ('imagem')->store('imagens', 'public');
+        }
         $nota->update($dados);
         return redirect()->route('keep.index')->with('mensagem', 'Nota atualizada com sucesso');
     }
